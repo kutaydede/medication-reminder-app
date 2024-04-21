@@ -2,24 +2,18 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class DoctorActivity extends AppCompatActivity {
-    Button DLogin,SignUp;
-    TextView mesaj;
+    Button doctorLogin, doctorSignUp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,15 +24,16 @@ public class DoctorActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        DLogin =findViewById(R.id.DL_btn);
-        SignUp =findViewById(R.id.DoctorSignUp_btn);
-        mesaj =findViewById(R.id.DoctortextView);
+        doctorLogin = findViewById(R.id.DL_btn);
+        doctorSignUp = findViewById(R.id.DoctorSignUp_btn);
 
-        DLogin.setOnClickListener(new View.OnClickListener() {
+        doctorLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-         public void onClick(View v) {goLogin(v);}
+            public void onClick(View v) {
+                goLogin(v);
+            }
         });
-        SignUp.setOnClickListener(new View.OnClickListener() {
+        doctorSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goSignUp(v);
@@ -46,13 +41,15 @@ public class DoctorActivity extends AppCompatActivity {
         });
 
     }
-    public void goLogin(View view){
-        Intent intent = new Intent(this,DoctorLoginActivity.class);
+
+    public void goLogin(View view) {
+        Intent intent = new Intent(this, DoctorLoginActivity.class);
         startActivity(intent);
 
     }
-    public void goSignUp(View view){
-        Intent intent = new Intent(this,DoctorSignUpActivity.class);
+
+    public void goSignUp(View view) {
+        Intent intent = new Intent(this, DoctorSignUpActivity.class);
         startActivity(intent);
 
     }

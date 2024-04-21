@@ -1,16 +1,19 @@
 package com.example.myapplication;
 
 public class MedicationModel {
-    private int Id;
-    private String IlacAdi;
+    private int id;
+    private String ilacAdi;
 
-    public int getId() {return Id;}
+    public int getId() {
+        return id;
+    }
+
     public String getIlacAdi() {
-        return IlacAdi;
+        return ilacAdi;
     }
 
     public void setIlacAdi(String ilacAdi) {
-        IlacAdi = ilacAdi;
+        this.ilacAdi = ilacAdi;
     }
 
 }

@@ -13,9 +13,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class AddMedicationActivity extends AppCompatActivity {
-EditText IlacAdi ;
-Button Ekle;
-DBHelper dbHelper;
+    EditText ilacAdi;
+    Button ekle;
+    DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,24 +27,24 @@ DBHelper dbHelper;
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        IlacAdi=findViewById(R.id.IlacAdi_input);
-        Ekle=findViewById(R.id.AddMedication_btn);
-        dbHelper=new DBHelper(this);
+        ilacAdi = findViewById(R.id.IlacAdi_input);
+        ekle = findViewById(R.id.AddMedication_btn);
+        dbHelper = new DBHelper(this);
 
-        Ekle.setOnClickListener(new View.OnClickListener() {
+        ekle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String  ilacAdi;
-                ilacAdi = IlacAdi.getText().toString();
+                String ilacAdi;
+                ilacAdi = AddMedicationActivity.this.ilacAdi.getText().toString();
 
-                if (IlacAdi.equals("")) {
+                if (AddMedicationActivity.this.ilacAdi.equals("")) {
                     Toast.makeText(AddMedicationActivity.this, "Lütfen İlaç Adını Giriniz!!", Toast.LENGTH_LONG).show();
                 } else {
-                    boolean Kayit = dbHelper.IlacEkle(ilacAdi);
-                    if (Kayit){
-                            Toast.makeText(AddMedicationActivity.this,"İlaç Kayıtı Başarılı !!",Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(AddMedicationActivity.this,"İlaç Kayıtı Başarısız !!",Toast.LENGTH_LONG).show();
+                    boolean Kayit = dbHelper.ilacEkle(ilacAdi);
+                    if (Kayit) {
+                        Toast.makeText(AddMedicationActivity.this, "İlaç Kayıtı Başarılı !!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(AddMedicationActivity.this, "İlaç Kayıtı Başarısız !!", Toast.LENGTH_LONG).show();
                     }
                 }
             }

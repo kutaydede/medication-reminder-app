@@ -13,8 +13,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class UserActivity extends AppCompatActivity {
-    Button Login,SignUp;
+    Button Login, SignUp;
     TextView mesaj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,9 +26,9 @@ public class UserActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Login =findViewById(R.id.login_btn);
-        SignUp =findViewById(R.id.SignUp_btn);
-        mesaj =findViewById(R.id.textView);
+        Login = findViewById(R.id.login_btn);
+        SignUp = findViewById(R.id.SignUp_btn);
+        mesaj = findViewById(R.id.textView);
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,13 +44,14 @@ public class UserActivity extends AppCompatActivity {
         });
     }
 
-    public void goLogin(View view){
-        Intent intent = new Intent(this,UserLoginActivity.class);
+    public void goLogin(View view) {
+        Intent intent = new Intent(this, UserLoginActivity.class);
         startActivity(intent);
 
     }
-    public void goSignUp(View view){
-        Intent intent = new Intent(this,UserSignUpActivity.class);
+
+    public void goSignUp(View view) {
+        Intent intent = new Intent(this, UserSignUpActivity.class);
         startActivity(intent);
 
     }

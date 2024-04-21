@@ -14,9 +14,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class DoctorLoginActivity extends AppCompatActivity {
-EditText Ad , Tc;
-Button Login;
-DBHelper dbHelper;
+    EditText ad, tc;
+    Button login;
+    DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,23 +28,23 @@ DBHelper dbHelper;
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-       Ad=findViewById(R.id.DoctorNamelogin_input);
-       Tc=findViewById(R.id.DoctorTclogin_input);
-       Login=findViewById(R.id.Doctorlogin_btn);
-        dbHelper =new DBHelper(this);
+        ad = findViewById(R.id.DoctorNamelogin_input);
+        tc = findViewById(R.id.DoctorTclogin_input);
+        login = findViewById(R.id.Doctorlogin_btn);
+        dbHelper = new DBHelper(this);
 
-        Login.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = Ad.getText().toString();
-                String tc = Tc.getText().toString();
+                String name = ad.getText().toString();
+                String tc = DoctorLoginActivity.this.tc.getText().toString();
 
                 DoctorModel doctor = new DoctorModel();
                 doctor.setAdi(name);
                 doctor.setTCKimlikNo(tc);
 
 
-                boolean Giris = dbHelper.DoktorGiris(doctor);
+                boolean Giris = dbHelper.doktorGiris(doctor);
 
                 if (Giris) {
                     go(v);
@@ -53,8 +54,9 @@ DBHelper dbHelper;
             }
         });
     }
-    public void go(View view){
-        Intent intent = new Intent(this,AddMedicationActivity.class);
+
+    public void go(View view) {
+        Intent intent = new Intent(this, AddMedicationActivity.class);
         startActivity(intent);
 
     }

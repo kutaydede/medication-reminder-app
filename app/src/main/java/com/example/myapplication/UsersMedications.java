@@ -1,57 +1,57 @@
 package com.example.myapplication;
 
 public class UsersMedications {
-    private int Id;
-    private String IlacAdi;
-    private String SabahKullanimi;
-    private String OgleKullanimi;
-    private String AksamKullanimi;
+    private int id;
+    private String ilacAdi;
+    private String sabahKullanimi;
+    private String ogleKullanimi;
+    private String aksamKullanimi;
 
     public UsersMedications(int id, String ilacAdi, String sabahKullanimi, String ogleKullanimi, String aksamKullanimi) {
-        Id = id;
-        IlacAdi = ilacAdi;
-        SabahKullanimi = sabahKullanimi;
-        OgleKullanimi = ogleKullanimi;
-        AksamKullanimi = aksamKullanimi;
+        this.id = id;
+        this.ilacAdi = ilacAdi;
+        this.sabahKullanimi = sabahKullanimi;
+        this.ogleKullanimi = ogleKullanimi;
+        this.aksamKullanimi = aksamKullanimi;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getIlacAdi() {
-        return IlacAdi;
+        return ilacAdi;
     }
 
     public void setIlacAdi(String ilacAdi) {
-        this.IlacAdi = ilacAdi;
+        this.ilacAdi = ilacAdi;
     }
 
     public String getSabahKullanimi() {
-        return SabahKullanimi;
+        return sabahKullanimi;
     }
 
     public void setSabahKullanimi(String sabahKullanimi) {
-        SabahKullanimi = sabahKullanimi;
+        this.sabahKullanimi = sabahKullanimi;
     }
 
     public String getOgleKullanimi() {
-        return OgleKullanimi;
+        return ogleKullanimi;
     }
 
     public void setOgleKullanimi(String ogleKullanimi) {
-        OgleKullanimi = ogleKullanimi;
+        this.ogleKullanimi = ogleKullanimi;
     }
 
     public String getAksamKullanimi() {
-        return AksamKullanimi;
+        return aksamKullanimi;
     }
 
     public void setAksamKullanimi(String aksamKullanimi) {
-        AksamKullanimi = aksamKullanimi;
+        this.aksamKullanimi = aksamKullanimi;
     }
 }

@@ -13,9 +13,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class DoctorSignUpActivity extends AppCompatActivity {
-EditText Tc , Ad, Soyad ,Uzmanlik;
-Button Kayit_btn;
-DBHelper dbHelper;
+    EditText tc, ad, soyad, uzmanlik;
+    Button kayit_btn;
+    DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,25 +27,25 @@ DBHelper dbHelper;
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Tc=findViewById(R.id.Tc_input);
-        Ad=findViewById(R.id.Name_input);
-        Soyad=findViewById(R.id.LastName_input);
-        Uzmanlik=findViewById(R.id.Profession_input);
-        Kayit_btn=findViewById(R.id.DoctorSignUp1_btn);
-        dbHelper=new DBHelper(this);
+        tc = findViewById(R.id.Tc_input);
+        ad = findViewById(R.id.Name_input);
+        soyad = findViewById(R.id.LastName_input);
+        uzmanlik = findViewById(R.id.Profession_input);
+        kayit_btn = findViewById(R.id.DoctorSignUp1_btn);
+        dbHelper = new DBHelper(this);
 
-        Kayit_btn.setOnClickListener(new View.OnClickListener() {
+        kayit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String tc, ad, soyad ,uzmanlik;
-                tc = Tc.getText().toString();
-                ad = Ad.getText().toString();
-                soyad = Soyad.getText().toString();
-                uzmanlik=Uzmanlik.getText().toString();
+                String tc, ad, soyad, uzmanlik;
+                tc = DoctorSignUpActivity.this.tc.getText().toString();
+                ad = DoctorSignUpActivity.this.ad.getText().toString();
+                soyad = DoctorSignUpActivity.this.soyad.getText().toString();
+                uzmanlik = DoctorSignUpActivity.this.uzmanlik.getText().toString();
 
 
-                if (tc.equals("") || ad.equals("")  || soyad.equals("") || uzmanlik.equals("")){
+                if (tc.equals("") || ad.equals("") || soyad.equals("") || uzmanlik.equals("")) {
                     Toast.makeText(DoctorSignUpActivity.this, "Lütfen Tüm Bilgileri Giriniz!!", Toast.LENGTH_LONG).show();
                 } else {
                     DoctorModel doctor = new DoctorModel();
@@ -54,17 +55,17 @@ DBHelper dbHelper;
                     doctor.setUzmanlikAlani(uzmanlik);
 
 
-                    boolean Kayit = dbHelper.DoktorEkle(doctor);
-                    if (Kayit){
-                        Toast.makeText(DoctorSignUpActivity.this,"Kayıt Başarılı !!",Toast.LENGTH_LONG).show();
-                    }else {
-                        boolean Sorgula =dbHelper.DoktorTcSorgula(doctor.getTCKimlikNo());
-                        if (Sorgula){
-                            Toast.makeText(DoctorSignUpActivity.this,"Girdiğiniz Tc Kimlik Numarasına Kayıtlı Bir Kayıt Var!!",Toast.LENGTH_LONG).show();
+                    boolean kayit = dbHelper.doktorEkle(doctor);
+                    if (kayit) {
+                        Toast.makeText(DoctorSignUpActivity.this, "Kayıt Başarılı !!", Toast.LENGTH_LONG).show();
+                    } else {
+                        boolean sorgula = dbHelper.doktorTcSorgula(doctor.getTCKimlikNo());
+                        if (sorgula) {
+                            Toast.makeText(DoctorSignUpActivity.this, "Girdiğiniz Tc Kimlik Numarasına Kayıtlı Bir Kayıt Var!!", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(DoctorSignUpActivity.this, "Kayıt Başarısız !!", Toast.LENGTH_LONG).show();
                         }
-                        else{
-                            Toast.makeText(DoctorSignUpActivity.this,"Kayıt Başarısız !!",Toast.LENGTH_LONG).show();
-                        } }
+                    }
                 }
             }
 

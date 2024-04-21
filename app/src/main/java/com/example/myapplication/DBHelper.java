@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final String DBName="IlacTakip.db";
-    public static final int DATABASE_VERSION = 5;
+    public static final String dbName = "IlacTakip.db";
+    public static final int databaseVersion = 5;
 
     public DBHelper(@Nullable Context context) {
-        super(context, DBName, null, DATABASE_VERSION);
+        super(context, dbName, null, databaseVersion);
     }
 
-    @Override 
+    @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE Kullanicilar (TCKimlikNo TEXT PRIMARY KEY, Ad TEXT NOT NULL,Soyad TEXT NOT NULL, Sifre TEXT NOT NULL, Email TEXT NOT NULL)");
         db.execSQL("CREATE TABLE Doktorlar (DoktorID INTEGER PRIMARY KEY AUTOINCREMENT, TCKimlikNo TEXT UNIQUE NOT NULL, Ad TEXT NOT NULL, Soyad TEXT NOT NULL, UzmalıkAlani Text NOT NULL)");
@@ -27,6 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IlacKullanimProgrami (ProgramID INTEGER PRIMARY KEY AUTOINCREMENT, IlacID INTEGER, TCKimlikNo TEXT, SabahKullanimZamani TEXT , OgleKullanimZamani TEXT, AksamKullanimZamani TEXT , FOREIGN KEY (IlacID) REFERENCES Ilaclar(IlacID), FOREIGN KEY (TCKimlikNo) REFERENCES Kullanicilar(TCKimlikNo))");
         db.execSQL("CREATE TABLE IlacKullanimDurumu (KayitID INTEGER PRIMARY KEY AUTOINCREMENT, IlacID INTEGER, TCKimlikNo TEXT, KullanimZamani DATETIME DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (IlacID) REFERENCES Ilaclar(IlacID), FOREIGN KEY (TCKimlikNo) REFERENCES Kullanicilar(TCKimlikNo))");
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS Kullanicilar");
@@ -37,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean KullaniciEkle(UserModel user) {
+    public boolean kullaniciEkle(UserModel user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -52,9 +53,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return result != -1;
     }
-    public boolean KullaniciGiris(String tc,String sifre) {
+
+    public boolean kullaniciGiris(String tc, String sifre) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Kullanicilar WHERE TCKimlikNo = ? AND Sifre = ?", new String[]{tc,sifre});
+        Cursor cursor = db.rawQuery("SELECT * FROM Kullanicilar WHERE TCKimlikNo = ? AND Sifre = ?", new String[]{tc, sifre});
         if (cursor.getCount() > 0) {
             cursor.close();
             return true;
@@ -63,6 +65,7 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         }
     }
+
     public String[] getKullaniciBilgileri(String tc) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT Ad, Soyad, Sifre, Email FROM Kullanicilar WHERE TCKimlikNo = ?", new String[]{tc});
@@ -86,7 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean KullaniciTcSorgula(String Tc) {
+    public boolean kullaniciTcSorgula(String Tc) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Kullanicilar WHERE TCKimlikNo = ? ", new String[]{Tc});
         if (cursor.getCount() > 0) {
@@ -97,7 +100,8 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         }
     }
-    public boolean DoktorEkle(DoctorModel doctor) {
+
+    public boolean doktorEkle(DoctorModel doctor) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -111,7 +115,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return result != -1;
     }
-    public boolean DoktorGiris(DoctorModel doctor) {
+
+    public boolean doktorGiris(DoctorModel doctor) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Doktorlar WHERE Ad = ? AND TCKimlikNo = ?", new String[]{doctor.getAdi(), doctor.getTCKimlikNo()});
         if (cursor.getCount() > 0) {
@@ -122,7 +127,8 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         }
     }
-    public boolean DoktorTcSorgula(String Tc) {
+
+    public boolean doktorTcSorgula(String Tc) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Doktorlar WHERE TCKimlikNo = ? ", new String[]{Tc});
         if (cursor.getCount() > 0) {
@@ -133,7 +139,8 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         }
     }
-    public boolean IlacEkle(String ilacAdi) {
+
+    public boolean ilacEkle(String ilacAdi) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("IlacAdi", ilacAdi);
@@ -142,6 +149,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return result != -1;
     }
+
     public List<UsersMedications> getUsersMedications(String tc) {
         List<UsersMedications> kullaniciIlaclar = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -159,7 +167,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String aksamKullanimi = cursor.getString(2);
 
 
-                UsersMedications usersMedications = new UsersMedications(id,ilacAdi,sabahKullanimi,ogleKullanimi,aksamKullanimi);
+                UsersMedications usersMedications = new UsersMedications(id, ilacAdi, sabahKullanimi, ogleKullanimi, aksamKullanimi);
                 kullaniciIlaclar.add(usersMedications);
             } while (cursor.moveToNext());
             cursor.close();
@@ -167,6 +175,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return kullaniciIlaclar;
     }
+
     public boolean insertIlacKullanimProgrami(DrugUseModel drugUseModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -180,7 +189,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return result != -1;
     }
-    public void IlacKullanimiEkle(int IlacID, String TCKimlikNo) {
+
+    public void ilacKullanimiEkle(int IlacID, String TCKimlikNo) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("IlacID", IlacID);

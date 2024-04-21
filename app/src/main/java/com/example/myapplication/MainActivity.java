@@ -3,12 +3,10 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,16 +16,18 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button User, Doctor;
-    TextView mesaj;
-    boolean loginSuccess=false;
-    DBHelper dbHelper = new DBHelper(this);
+    Button user, doctor;
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        // DBHelper nesnesini onCreate() metodunda değil, onResume() metodunda oluşturun
+        dbHelper = new DBHelper(this);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
             String savedPassword = sharedPreferences.getString("password", "");
 
             if (!TextUtils.isEmpty(savedTc) && !TextUtils.isEmpty(savedPassword)) {
-
-                 loginSuccess = dbHelper.KullaniciGiris(savedTc,savedPassword);
+                // DBHelper nesnesini kullanıp kapatmadan önce onResume() metodunda oluşturuldu
+                boolean loginSuccess = dbHelper.kullaniciGiris(savedTc, savedPassword);
 
                 if (loginSuccess) {
                     Intent intent = new Intent(this, HomeActivity.class);
@@ -49,17 +49,15 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        User = findViewById(R.id.GoUser_btn);
-        Doctor = findViewById(R.id.GoDoctor_btn);
-        mesaj = findViewById(R.id.textView);
-
-        User.setOnClickListener(new View.OnClickListener() {
+        user = findViewById(R.id.GoUser_btn);
+        doctor = findViewById(R.id.GoDoctor_btn);
+        user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goUser(v);
             }
         });
-        Doctor.setOnClickListener(new View.OnClickListener() {
+        doctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goDoctor(v);
@@ -67,10 +65,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dbHelper = new DBHelper(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // DBHelper nesnesini onResume() metodunda oluşturulduğu gibi kapatın
+        dbHelper.close();
+    }
+
     public void goUser(View view) {
         Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
-        dbHelper.close();
     }
 
     public void goDoctor(View view) {

@@ -2,31 +2,31 @@ package com.example.myapplication;
 
 public class PersonModel {
 
-    private String TCKimlikNo;
-    private String Adi;
-    private String Soyadi;
+    private String tcKimlikNo;
+    private String adi;
+    private String soyadi;
 
     public String getTCKimlikNo() {
-        return TCKimlikNo;
+        return tcKimlikNo;
     }
 
     public void setTCKimlikNo(String TCKimlikNo) {
-        this.TCKimlikNo = TCKimlikNo;
+        this.tcKimlikNo = TCKimlikNo;
     }
 
     public String getAdi() {
-        return Adi;
+        return adi;
     }
 
     public void setAdi(String adi) {
-        Adi = adi;
+        this.adi = adi;
     }
 
     public String getSoyadi() {
-        return Soyadi;
+        return soyadi;
     }
 
     public void setSoyadi(String soyadi) {
-        Soyadi = soyadi;
+        this.soyadi = soyadi;
     }
 }

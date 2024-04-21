@@ -14,8 +14,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class UserSignUpActivity extends AppCompatActivity {
-    EditText TC,Name,LastName,Password,Email;
-    Button SignUpBtn ;
+    EditText tc, name, lastName, password, email;
+    Button signUpBtn;
     DBHelper dbHelper;
 
     @Override
@@ -29,25 +29,25 @@ public class UserSignUpActivity extends AppCompatActivity {
             return insets;
 
         });
-        TC=findViewById(R.id.Tc_input);
-        Name=findViewById(R.id.Name_input);
-        LastName=findViewById(R.id.LastName_input);
-        Password=findViewById(R.id.Password_input);
-        Email=findViewById(R.id.Email_input);
-        SignUpBtn=findViewById(R.id.SignUp_btn);
-        dbHelper=new DBHelper(this);
+        tc = findViewById(R.id.Tc_input);
+        name = findViewById(R.id.Name_input);
+        lastName = findViewById(R.id.LastName_input);
+        password = findViewById(R.id.Password_input);
+        email = findViewById(R.id.Email_input);
+        signUpBtn = findViewById(R.id.SignUp_btn);
+        dbHelper = new DBHelper(this);
 
-        SignUpBtn.setOnClickListener(new View.OnClickListener() {
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tc, name,lastName, password, email;
-                tc = TC.getText().toString();
-                name = Name.getText().toString();
-                lastName=LastName.getText().toString();
-                password = Password.getText().toString();
-                email = Email.getText().toString();
+                String tc, name, lastName, password, email;
+                tc = UserSignUpActivity.this.tc.getText().toString();
+                name = UserSignUpActivity.this.name.getText().toString();
+                lastName = UserSignUpActivity.this.lastName.getText().toString();
+                password = UserSignUpActivity.this.password.getText().toString();
+                email = UserSignUpActivity.this.email.getText().toString();
 
-                if (tc.equals("") || name.equals("")|| lastName.equals("") || password.equals("") || email.equals("")) {
+                if (tc.equals("") || name.equals("") || lastName.equals("") || password.equals("") || email.equals("")) {
                     Toast.makeText(UserSignUpActivity.this, "Lütfen Tüm Bilgileri Giriniz!!", Toast.LENGTH_LONG).show();
                 } else {
                     UserModel user = UserModel.getInstance();
@@ -57,16 +57,16 @@ public class UserSignUpActivity extends AppCompatActivity {
                     user.setSifre(password);
                     user.setEmail(email);
 
-                    boolean Kayit = dbHelper.KullaniciEkle(user);
-                    if (Kayit){
-                        Toast.makeText(UserSignUpActivity.this,"Kayıt Başarılı !!",Toast.LENGTH_LONG).show();
-                    }else {
-                        boolean Sorgula =dbHelper.KullaniciTcSorgula(user.getTCKimlikNo());
-                        if (Sorgula){
-                            Toast.makeText(UserSignUpActivity.this,"Girdiğiniz Tc Kimlik Numarasına Kayıtlı Bir Kayıt Var!!",Toast.LENGTH_LONG).show();
-                        }
-                        else{
-                        Toast.makeText(UserSignUpActivity.this,"Kayıt Başarısız !!",Toast.LENGTH_LONG).show();
+                    boolean Kayit = dbHelper.kullaniciEkle(user);
+                    if (Kayit) {
+                        Toast.makeText(UserSignUpActivity.this, "Kayıt Başarılı !!", Toast.LENGTH_LONG).show();
+                        goLogin(v);
+                    } else {
+                        boolean Sorgula = dbHelper.kullaniciTcSorgula(user.getTCKimlikNo());
+                        if (Sorgula) {
+                            Toast.makeText(UserSignUpActivity.this, "Girdiğiniz Tc Kimlik Numarasına Kayıtlı Bir Kayıt Var!!", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(UserSignUpActivity.this, "Kayıt Başarısız !!", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
@@ -74,10 +74,11 @@ public class UserSignUpActivity extends AppCompatActivity {
 
         });
 
-    } public void goLogin(View view){
-        Intent intent = new Intent(this,UserLoginActivity.class);
+    }
+
+    public void goLogin(View view) {
+        Intent intent = new Intent(this, UserLoginActivity.class);
         startActivity(intent);
 
     }
-
 }

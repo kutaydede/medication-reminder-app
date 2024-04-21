@@ -13,9 +13,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class AddMedicationToUserActivity extends AppCompatActivity {
-EditText Id,Tc,Sabah,Ogle,Aksam;
-Button AddMedication;
-DBHelper dbHelper;
+    EditText id, tcNo, sabah, ogle, aksam;
+    Button addMedication;
+    DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,45 +27,45 @@ DBHelper dbHelper;
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Id=findViewById(R.id.IlacId_input);
-        Tc=findViewById(R.id.TcNo_input);
-        Sabah=findViewById(R.id.SabaheditTextTime);
-        Ogle=findViewById(R.id.OgleeditTextTime);
-        Aksam=findViewById(R.id.AksameditTextTime);
-        AddMedication=findViewById(R.id.AddMedicationToUser_btn);
-        dbHelper =new DBHelper(this);
+        id = findViewById(R.id.IlacId_input);
+        tcNo = findViewById(R.id.TcNo_input);
+        sabah = findViewById(R.id.SabaheditTextTime);
+        ogle = findViewById(R.id.OgleeditTextTime);
+        aksam = findViewById(R.id.AksameditTextTime);
+        addMedication = findViewById(R.id.AddMedicationToUser_btn);
+        dbHelper = new DBHelper(this);
 
-     AddMedication.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
+        addMedication.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-             int id;
-             String idString, tc, sabah, ogle, aksam;
-             idString = Id.getText().toString();
-             id = Integer.parseInt(idString);
-             tc = Tc.getText().toString();
-             sabah = Sabah.getText().toString();
-             ogle = Ogle.getText().toString();
-             aksam = Aksam.getText().toString();
-             if (idString.equals("") || tc.equals("") || sabah.equals("") || ogle.equals("") || aksam.equals("")) {
-                 Toast.makeText(AddMedicationToUserActivity.this, "Lütfen Tüm Bilgileri Giriniz!!", Toast.LENGTH_LONG).show();
-             } else {
-                 DrugUseModel drugUseModel = new DrugUseModel();
-                 drugUseModel.setId(id);
-                 drugUseModel.setTc(tc);
-                 drugUseModel.setSabahKullanimi(sabah);
-                 drugUseModel.setOgleKullanimi(ogle);
-                 drugUseModel.setAksamKullanimi(aksam);
+                int id;
+                String idString, tc, sabah, ogle, aksam;
+                idString = AddMedicationToUserActivity.this.id.getText().toString();
+                id = Integer.parseInt(idString);
+                tc = tcNo.getText().toString();
+                sabah = AddMedicationToUserActivity.this.sabah.getText().toString();
+                ogle = AddMedicationToUserActivity.this.ogle.getText().toString();
+                aksam = AddMedicationToUserActivity.this.aksam.getText().toString();
+                if (idString.isEmpty() || tc.isEmpty() || sabah.isEmpty() || ogle.isEmpty() || aksam.isEmpty()) {
+                    Toast.makeText(AddMedicationToUserActivity.this, "Lütfen Tüm Bilgileri Giriniz!!", Toast.LENGTH_LONG).show();
+                } else {
+                    DrugUseModel drugUseModel = new DrugUseModel();
+                    drugUseModel.setId(id);
+                    drugUseModel.setTc(tc);
+                    drugUseModel.setSabahKullanimi(sabah);
+                    drugUseModel.setOgleKullanimi(ogle);
+                    drugUseModel.setAksamKullanimi(aksam);
 
-                 boolean Kayit =dbHelper.insertIlacKullanimProgrami(drugUseModel);
-                 if (Kayit){
-                     Toast.makeText(AddMedicationToUserActivity.this,"Kayıt Başarılı !!",Toast.LENGTH_LONG).show();
-                 } else{
-                         Toast.makeText(AddMedicationToUserActivity.this,"Kayıt Başarısız !!",Toast.LENGTH_LONG).show();
-                 }
-             }
-         }
-     });
+                    boolean Kayit = dbHelper.insertIlacKullanimProgrami(drugUseModel);
+                    if (Kayit) {
+                        Toast.makeText(AddMedicationToUserActivity.this, "Kayıt Başarılı !!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(AddMedicationToUserActivity.this, "Kayıt Başarısız !!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
     }
 
 }

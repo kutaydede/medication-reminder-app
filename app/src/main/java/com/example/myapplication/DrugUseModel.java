@@ -1,49 +1,49 @@
 package com.example.myapplication;
 
 public class DrugUseModel {
-    private int Id;
-    private String Tc;
-    private String SabahKullanimi;
-    private String OgleKullanimi;
-    private String AksamKullanimi;
+    private int id;
+    private String tc;
+    private String sabahKullanimi;
+    private String ogleKullanimi;
+    private String aksamKullanimi;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTc() {
-        return Tc;
+        return tc;
     }
 
     public void setTc(String tc) {
-        Tc = tc;
+        this.tc = tc;
     }
 
     public String getSabahKullanimi() {
-        return SabahKullanimi;
+        return sabahKullanimi;
     }
 
     public void setSabahKullanimi(String sabahKullanimi) {
-        SabahKullanimi = sabahKullanimi;
+        this.sabahKullanimi = sabahKullanimi;
     }
 
     public String getOgleKullanimi() {
-        return OgleKullanimi;
+        return ogleKullanimi;
     }
 
     public void setOgleKullanimi(String ogleKullanimi) {
-        OgleKullanimi = ogleKullanimi;
+        this.ogleKullanimi = ogleKullanimi;
     }
 
     public String getAksamKullanimi() {
-        return AksamKullanimi;
+        return aksamKullanimi;
     }
 
     public void setAksamKullanimi(String aksamKullanimi) {
-        AksamKullanimi = aksamKullanimi;
+        this.aksamKullanimi = aksamKullanimi;
     }
 }
