@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "680901711668",
+    "project_id": "medication-tracking-app-3abf2",
+    "storage_bucket": "medication-tracking-app-3abf2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680901711668:android:3a2110aa6ab49c76e33761",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnhfwVGJHKTDHUOhX4z7QxLM3flDvgUHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
