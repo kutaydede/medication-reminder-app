@@ -17,6 +17,7 @@ public class UserSignUpActivity extends AppCompatActivity {
     EditText tc, name, lastName, password, email;
     Button signUpBtn;
     DBHelper dbHelper;
+    FirebaseDBHelper firebaseDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class UserSignUpActivity extends AppCompatActivity {
         email = findViewById(R.id.Email_input);
         signUpBtn = findViewById(R.id.SignUp_btn);
         dbHelper = new DBHelper(this);
+        firebaseDBHelper = new FirebaseDBHelper();
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +59,8 @@ public class UserSignUpActivity extends AppCompatActivity {
                     user.setSifre(password);
                     user.setEmail(email);
 
-                    boolean Kayit = dbHelper.kullaniciEkle(user);
+//                    boolean Kayit = dbHelper.kullaniciEkle(user);
+                    boolean Kayit = firebaseDBHelper.writeToDb(user);
                     if (Kayit) {
                         Toast.makeText(UserSignUpActivity.this, "Kayıt Başarılı !!", Toast.LENGTH_LONG).show();
                         goLogin(v);

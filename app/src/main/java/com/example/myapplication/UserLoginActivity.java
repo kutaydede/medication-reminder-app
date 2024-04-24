@@ -24,6 +24,7 @@ public class UserLoginActivity extends AppCompatActivity {
     CheckBox hatirla;
 
     DBHelper dbHelper;
+    FirebaseDBHelper firebaseDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class UserLoginActivity extends AppCompatActivity {
             return insets;
         });
         dbHelper = new DBHelper(this);
+        firebaseDBHelper = new FirebaseDBHelper();
         tc = findViewById(R.id.Tclogin_input);
         sifre = findViewById(R.id.Passwordlogin_input);
         login = findViewById(R.id.login_btn);
@@ -68,7 +70,9 @@ public class UserLoginActivity extends AppCompatActivity {
                 String sifre = UserLoginActivity.this.sifre.getText().toString();
                 UserModel user = UserModel.getInstance();
 
-                boolean Giris = dbHelper.kullaniciGiris(tc, sifre);
+//                boolean Giris = dbHelper.kullaniciGiris(tc, sifre);
+                boolean Giris = firebaseDBHelper.readToDb(tc, sifre);
+
 
                 if (Giris) {
                     user.setTCKimlikNo(tc);
