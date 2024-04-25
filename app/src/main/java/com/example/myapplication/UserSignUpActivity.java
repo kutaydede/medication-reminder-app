@@ -59,24 +59,21 @@ public class UserSignUpActivity extends AppCompatActivity {
                     user.setSifre(password);
                     user.setEmail(email);
 
-//                    boolean Kayit = dbHelper.kullaniciEkle(user);
-                    boolean Kayit = firebaseDBHelper.writeToDb(user);
-                    if (Kayit) {
-                        Toast.makeText(UserSignUpActivity.this, "Kayıt Başarılı !!", Toast.LENGTH_LONG).show();
-                        goLogin(v);
-                    } else {
-                        boolean Sorgula = dbHelper.kullaniciTcSorgula(user.getTCKimlikNo());
-                        if (Sorgula) {
-                            Toast.makeText(UserSignUpActivity.this, "Girdiğiniz Tc Kimlik Numarasına Kayıtlı Bir Kayıt Var!!", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(UserSignUpActivity.this, "Kayıt Başarısız !!", Toast.LENGTH_LONG).show();
+                    firebaseDBHelper.writeToDbUser(user, new FirebaseDBHelper.OnWriteCompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            Toast.makeText(UserSignUpActivity.this, "Kayıt Başarılı !!", Toast.LENGTH_LONG).show();
+                            goLogin(v);
                         }
-                    }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            Toast.makeText(UserSignUpActivity.this, "Kayıt Başarısız: " + errorMessage, Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             }
-
         });
-
     }
 
     public void goLogin(View view) {

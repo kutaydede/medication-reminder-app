@@ -70,24 +70,30 @@ public class UserLoginActivity extends AppCompatActivity {
                 String sifre = UserLoginActivity.this.sifre.getText().toString();
                 UserModel user = UserModel.getInstance();
 
-//                boolean Giris = dbHelper.kullaniciGiris(tc, sifre);
-                boolean Giris = firebaseDBHelper.readToDb(tc, sifre);
-
-
-                if (Giris) {
-                    user.setTCKimlikNo(tc);
-                    user.setSifre(sifre);
-                    goHome(v);
-                    if (hatirla.isChecked()) {
-                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("tc", tc);
-                        editor.putString("password", sifre);
-                        editor.apply();
+                firebaseDBHelper.readToDbUser(tc, sifre, new FirebaseDBHelper.OnReadCompleteListener() {
+                    @Override
+                    public void onSuccess(boolean result) {
+                        if (result) {
+                            user.setTCKimlikNo(tc);
+                            user.setSifre(sifre);
+                            goHome(v);
+                            if (hatirla.isChecked()) {
+                                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("tc", tc);
+                                editor.putString("password", sifre);
+                                editor.apply();
+                            }
+                        } else {
+                            Toast.makeText(UserLoginActivity.this, "Giriş Başarısız !!", Toast.LENGTH_LONG).show();
+                        }
                     }
-                } else {
-                    Toast.makeText(UserLoginActivity.this, "Giriş Başarısız !!", Toast.LENGTH_LONG).show();
-                }
+
+                    @Override
+                    public void onFailure(String errorMessage) {
+                        Toast.makeText(UserLoginActivity.this, "Bir hata oluştu: " + errorMessage, Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
     }

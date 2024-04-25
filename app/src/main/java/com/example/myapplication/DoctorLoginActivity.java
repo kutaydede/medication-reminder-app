@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class DoctorLoginActivity extends AppCompatActivity {
     EditText ad, tc;
     Button login;
-    DBHelper dbHelper;
+    FirebaseDBHelper firebaseDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class DoctorLoginActivity extends AppCompatActivity {
         ad = findViewById(R.id.DoctorNamelogin_input);
         tc = findViewById(R.id.DoctorTclogin_input);
         login = findViewById(R.id.Doctorlogin_btn);
-        dbHelper = new DBHelper(this);
+        firebaseDBHelper = new FirebaseDBHelper();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,24 +39,29 @@ public class DoctorLoginActivity extends AppCompatActivity {
                 String name = ad.getText().toString();
                 String tc = DoctorLoginActivity.this.tc.getText().toString();
 
-                DoctorModel doctor = new DoctorModel();
-                doctor.setAdi(name);
-                doctor.setTCKimlikNo(tc);
+                firebaseDBHelper.readToDbDoctor(tc, name, new FirebaseDBHelper.OnReadCompleteListener() {
+                    @Override
+                    public void onSuccess(boolean result) {
+                        if (result) {
+                            Toast.makeText(DoctorLoginActivity.this, "Giriş Başarılı !!", Toast.LENGTH_LONG).show();
+                            go(v);
+                        } else {
+                            Toast.makeText(DoctorLoginActivity.this, "Giriş Başarısız !!", Toast.LENGTH_LONG).show();
+                        }
+                    }
 
-
-                boolean Giris = dbHelper.doktorGiris(doctor);
-
-                if (Giris) {
-                    go(v);
-                } else {
-                    Toast.makeText(DoctorLoginActivity.this, "Giriş Başarısız !!", Toast.LENGTH_LONG).show();
-                }
+                    @Override
+                    public void onFailure(String errorMessage) {
+                        Toast.makeText(DoctorLoginActivity.this, "Bir hata oluştu: " + errorMessage, Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
+
     }
 
     public void go(View view) {
-        Intent intent = new Intent(this, AddMedicationActivity.class);
+        Intent intent = new Intent(this, AddMedicationToUserActivity.class);
         startActivity(intent);
 
     }

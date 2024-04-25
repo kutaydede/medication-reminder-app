@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class DoctorSignUpActivity extends AppCompatActivity {
     EditText tc, ad, soyad, uzmanlik;
     Button kayit_btn;
-    DBHelper dbHelper;
+    FirebaseDBHelper firebaseDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class DoctorSignUpActivity extends AppCompatActivity {
         soyad = findViewById(R.id.LastName_input);
         uzmanlik = findViewById(R.id.Profession_input);
         kayit_btn = findViewById(R.id.DoctorSignUp1_btn);
-        dbHelper = new DBHelper(this);
+        firebaseDBHelper = new FirebaseDBHelper();
 
         kayit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,20 +56,26 @@ public class DoctorSignUpActivity extends AppCompatActivity {
                     doctor.setUzmanlikAlani(uzmanlik);
 
 
-                    boolean kayit = dbHelper.doktorEkle(doctor);
-                    if (kayit) {
-                        Toast.makeText(DoctorSignUpActivity.this, "Kayıt Başarılı !!", Toast.LENGTH_LONG).show();
-                    } else {
-                        boolean sorgula = dbHelper.doktorTcSorgula(doctor.getTCKimlikNo());
-                        if (sorgula) {
-                            Toast.makeText(DoctorSignUpActivity.this, "Girdiğiniz Tc Kimlik Numarasına Kayıtlı Bir Kayıt Var!!", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(DoctorSignUpActivity.this, "Kayıt Başarısız !!", Toast.LENGTH_LONG).show();
+                    firebaseDBHelper.writeToDbDoctor(doctor, new FirebaseDBHelper.OnWriteCompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            Toast.makeText(DoctorSignUpActivity.this, "Kayıt Başarılı !!", Toast.LENGTH_LONG).show();
+                            goLogin(v);
                         }
-                    }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            Toast.makeText(DoctorSignUpActivity.this, "Kayıt Başarısız: " + errorMessage, Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             }
 
         });
+    } public void goLogin(View view) {
+        Intent intent = new Intent(this, DoctorLoginActivity.class);
+        startActivity(intent);
+
     }
+
 }

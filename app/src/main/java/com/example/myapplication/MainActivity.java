@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     Button user, doctor;
-    DBHelper dbHelper;
+ FirebaseDBHelper firebaseDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // DBHelper nesnesini onCreate() metodunda değil, onResume() metodunda oluşturun
-        dbHelper = new DBHelper(this);
+        firebaseDBHelper = new FirebaseDBHelper();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -37,13 +37,18 @@ public class MainActivity extends AppCompatActivity {
             String savedPassword = sharedPreferences.getString("password", "");
 
             if (!TextUtils.isEmpty(savedTc) && !TextUtils.isEmpty(savedPassword)) {
-                // DBHelper nesnesini kullanıp kapatmadan önce onResume() metodunda oluşturuldu
-                boolean loginSuccess = dbHelper.kullaniciGiris(savedTc, savedPassword);
+                boolean loginSuccess = firebaseDBHelper.readToDbUser(savedTc, savedPassword, new FirebaseDBHelper.OnReadCompleteListener() {
+                    @Override
+                    public void onSuccess(boolean result) {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
 
-                if (loginSuccess) {
-                    Intent intent = new Intent(this, HomeActivity.class);
-                    startActivity(intent);
-                }
+                    @Override
+                    public void onFailure(String errorMessage) {
+                        Toast.makeText(MainActivity.this, "Bir hata oluştu: " + errorMessage, Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             return insets;
@@ -63,19 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 goDoctor(v);
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        dbHelper = new DBHelper(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // DBHelper nesnesini onResume() metodunda oluşturulduğu gibi kapatın
-        dbHelper.close();
     }
 
     public void goUser(View view) {
