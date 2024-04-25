@@ -3,7 +3,11 @@ package com.example.myapplication;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,7 +21,7 @@ public class FirebaseDBHelper {
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
     public void writeToDbUser(UserModel userModel, OnWriteCompleteListener listener) {
-        database.child(userModel.getTCKimlikNo()).setValue(userModel)
+        database.child("users").child(userModel.getTCKimlikNo()).setValue(userModel)
                 .addOnSuccessListener(aVoid -> {
                     listener.onSuccess();
                 })
@@ -27,7 +31,7 @@ public class FirebaseDBHelper {
                 });
     }
     public void writeToDbDoctor(DoctorModel doctorModel, OnWriteCompleteListener listener) {
-        database.child(doctorModel.getTCKimlikNo()).setValue(doctorModel)
+        database.child("doctors").child(doctorModel.getTCKimlikNo()).setValue(doctorModel)
                 .addOnSuccessListener(aVoid -> {
                     listener.onSuccess();
                 })
@@ -38,26 +42,27 @@ public class FirebaseDBHelper {
     }
 
 
-    public boolean readToDbUser(String tc, String sifre, OnReadCompleteListener listener) {
-        database.child(tc).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void readToDbUser(String tc, String sifre, OnReadCompleteListener listener) {
+        database.child("users").child(tc).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Object value = dataSnapshot.getValue(Object.class);
-                UserModel user = mapper.convertValue((HashMap) value, UserModel.class);
-                Log.d("Firebase", "Value is: " + value);
-                if (user != null && user.getSifre().equals(sifre)) {
-                    listener.onSuccess(true);
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DataSnapshot dataSnapshot = task.getResult();
+                    if (dataSnapshot.exists()) {
+                        UserModel user = dataSnapshot.getValue(UserModel.class);
+                        Log.d("User Name", user.getAdi());
+                        boolean isSuccess = user.getSifre().equals(sifre);
+                        listener.onSuccess(isSuccess);
+                    } else {
+                        Log.d("Firebase", "User not found");
+                        listener.onFailure("User not found");
+                    }
                 } else {
-                    listener.onSuccess(false);
+                    Log.e("Firebase", "Failed to read user", task.getException());
+                    listener.onFailure("Failed to read user");
                 }
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("Firebase", "Failed to read value.", databaseError.toException());
-                listener.onFailure(databaseError.getMessage());
-            }
         });
-        return false;
     }
     public void readToDbDoctor(String tc, String adi, OnReadCompleteListener listener) {
         database.child(tc).addListenerForSingleValueEvent(new ValueEventListener() {

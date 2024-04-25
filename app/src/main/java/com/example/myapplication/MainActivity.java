@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             String savedPassword = sharedPreferences.getString("password", "");
 
             if (!TextUtils.isEmpty(savedTc) && !TextUtils.isEmpty(savedPassword)) {
-                boolean loginSuccess = firebaseDBHelper.readToDbUser(savedTc, savedPassword, new FirebaseDBHelper.OnReadCompleteListener() {
+                firebaseDBHelper.readToDbUser(savedTc, savedPassword, new FirebaseDBHelper.OnReadCompleteListener() {
                     @Override
                     public void onSuccess(boolean result) {
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
