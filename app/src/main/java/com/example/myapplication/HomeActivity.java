@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -19,12 +18,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.Alarm.AlarmActivity;
+import com.example.myapplication.Users.UserLoginActivity;
+import com.example.myapplication.Users.UserModel;
+import com.example.myapplication.Users.UsersMedications;
+
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-    Button logout;
     TextView name;
     DBHelper dbHelper;
+    UserModel user = UserModel.getInstance();
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
         String savedTc = sharedPreferences.getString("tc", "");
 
         dbHelper = new DBHelper(this);
-        UserModel user = UserModel.getInstance();
+
 
         if (user.getTCKimlikNo() == null) {
             user.setTCKimlikNo(savedTc);
@@ -51,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
             TextView idTextView = new TextView(this);
             idTextView.setText(String.valueOf(usersMedications.getId()));
             idTextView.setPadding(5, 5, 5, 5);
-            idTextView.setTextSize(14);
+            idTextView.setTextSize(13);
             idTextView.setGravity(Gravity.CENTER);
             idTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.Darkblue));
             row.addView(idTextView);
@@ -59,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
             TextView ilacAdiTextView = new TextView(this);
             ilacAdiTextView.setText(usersMedications.getIlacAdi());
             ilacAdiTextView.setPadding(5, 5, 5, 5);
-            ilacAdiTextView.setTextSize(14);
+            ilacAdiTextView.setTextSize(13);
             ilacAdiTextView.setGravity(Gravity.CENTER);
             ilacAdiTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.blue));
             row.addView(ilacAdiTextView);
@@ -67,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {
             TextView sabahKullanimiTextView = new TextView(this);
             sabahKullanimiTextView.setText(usersMedications.getSabahKullanimi());
             sabahKullanimiTextView.setPadding(5, 5, 5, 5);
-            sabahKullanimiTextView.setTextSize(14);
+            sabahKullanimiTextView.setTextSize(13);
             sabahKullanimiTextView.setGravity(Gravity.CENTER);
             sabahKullanimiTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.blue));
             row.addView(sabahKullanimiTextView);
@@ -75,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
             TextView ogleKullanimiTextView = new TextView(this);
             ogleKullanimiTextView.setText(usersMedications.getOgleKullanimi());
             ogleKullanimiTextView.setPadding(5, 5, 5, 5);
-            ogleKullanimiTextView.setTextSize(14);
+            ogleKullanimiTextView.setTextSize(13);
             ogleKullanimiTextView.setGravity(Gravity.CENTER);
             ogleKullanimiTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.blue));
             row.addView(ogleKullanimiTextView);
@@ -83,7 +88,7 @@ public class HomeActivity extends AppCompatActivity {
             TextView aksamKullanimiTextView = new TextView(this);
             aksamKullanimiTextView.setText(usersMedications.getAksamKullanimi());
             aksamKullanimiTextView.setPadding(5, 5, 5, 5);
-            aksamKullanimiTextView.setTextSize(14);
+            aksamKullanimiTextView.setTextSize(13);
             aksamKullanimiTextView.setGravity(Gravity.CENTER);
             aksamKullanimiTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.blue));
             row.addView(aksamKullanimiTextView);
@@ -91,10 +96,11 @@ public class HomeActivity extends AppCompatActivity {
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Burada tıklanan satırın işlemlerini gerçekleştirin
-                    // Örneğin, tıklanan ilacın detaylarına geçmek için bir Intent başlatın
-                    Toast.makeText(HomeActivity.this, "Tıklanan ilac: " + usersMedications.getIlacAdi(), Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(HomeActivity.this, "Tıklanan ilaç: " + usersMedications.getIlacAdi(), Toast.LENGTH_SHORT).show();
+                     id = usersMedications.getId();
                     Intent intent = new Intent(HomeActivity.this, AlarmActivity.class);
+                    intent.putExtra("IlacID", id);
                     startActivity(intent);
                 }
             });
@@ -110,7 +116,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         name = findViewById(R.id.textView3);
-        logout = findViewById(R.id.BackMain_btn);
 
         if (dbHelper != null) {
             String[] kullaniciBilgileri = dbHelper.getKullaniciBilgileri(user.getTCKimlikNo());
@@ -127,17 +132,19 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Veritabanı yardımcısı başlatılamadı.", Toast.LENGTH_SHORT).show();
         }
-        logout.setOnClickListener(this::logout);
+
     }
 
-    public void logout(View view) {
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
 
-        Intent intent = new Intent(this, UserLoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
+public void exit_btn(View view) {
+
+    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.clear();
+    editor.apply();
+
+    Intent intent = new Intent(this, MainActivity.class);
+    startActivity(intent);
+    finish();
+}
 }

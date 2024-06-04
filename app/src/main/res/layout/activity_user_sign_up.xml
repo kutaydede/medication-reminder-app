@@ -15,7 +15,7 @@
         android:background="@color/toolbarColor"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true">
 
         <!-- Geri dönüş düğmesi -->
         <ImageButton
@@ -28,7 +28,16 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:onClick="Back_btn" />
-
+        <TextView
+            android:id="@+id/LoginUserTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Kullanıcı Oluşturma"
+            android:textColor="@android:color/white"
+            android:textSize="28sp"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
         android:layout_width="match_parent"
@@ -111,7 +120,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
+            android:text="Kayıt Ol"
             android:backgroundTint="@color/white"
             android:textColor="#008EFF"
             android:padding="18dp"

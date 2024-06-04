@@ -1,5 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.Doctors;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.myapplication.DBHelper;
+import com.example.myapplication.DrugUseModel;
+import com.example.myapplication.R;
+import com.example.myapplication.Users.UserSignUpActivity;
 
 public class AddMedicationToUserActivity extends AppCompatActivity {
     EditText id, tcNo, sabah, ogle, aksam;
@@ -34,7 +40,6 @@ public class AddMedicationToUserActivity extends AppCompatActivity {
         aksam = findViewById(R.id.AksameditTextTime);
         addMedication = findViewById(R.id.AddMedicationToUser_btn);
         dbHelper = new DBHelper(this);
-
         addMedication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,4 +73,8 @@ public class AddMedicationToUserActivity extends AppCompatActivity {
         });
     }
 
+    public void Back_btn(View view) {
+        Intent intent = new Intent(this, DoctorActivity.class);
+        startActivity(intent);
+    }
 }

@@ -2,48 +2,75 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_ilac"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".AlarmActivity"
+            android:name=".DrugUseListInquiryActivity"
             android:exported="false" />
         <activity
-            android:name=".AddMedicationToUserActivity"
+            android:name=".DrugUseListActivity"
+            android:exported="false" />
+
+        <receiver
+            android:name=".Alarm.AlarmReceiver"
+            android:exported="true" />
+        <receiver
+            android:name=".Buttons.Button1Receiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.myapplication.ACTION_BUTTON1_CLICKED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".Buttons.Button2Receiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.myapplication.ACTION_BUTTON2_CLICKED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".Alarm.AlarmActivity"
             android:exported="false" />
         <activity
-            android:name=".MedicineListActivity"
+            android:name=".Doctors.AddMedicationToUserActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity"
+            android:name=".Doctors.AddMedicationActivity"
             android:exported="false" />
         <activity
-            android:name=".AddMedicationActivity"
+            android:name=".Doctors.DoctorSignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".DoctorSignUpActivity"
+            android:name=".Doctors.DoctorLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".DoctorLoginActivity"
+            android:name=".Doctors.DoctorActivity"
             android:exported="false" />
         <activity
-            android:name=".DoctorActivity"
+            android:name=".Users.UserActivity"
             android:exported="false" />
         <activity
-            android:name=".UserActivity"
+            android:name=".Users.UserLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".UserLoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UserSignUpActivity"
+            android:name=".Users.UserSignUpActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"

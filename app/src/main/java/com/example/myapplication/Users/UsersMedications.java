@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Users;
 
 public class UsersMedications {
     private int id;
@@ -7,6 +7,12 @@ public class UsersMedications {
     private String ogleKullanimi;
     private String aksamKullanimi;
 
+    public UsersMedications( String ilacAdi, String sabahKullanimi, String ogleKullanimi, String aksamKullanimi) {
+        this.ilacAdi = ilacAdi;
+        this.sabahKullanimi = sabahKullanimi;
+        this.ogleKullanimi = ogleKullanimi;
+        this.aksamKullanimi = aksamKullanimi;
+    }
     public UsersMedications(int id, String ilacAdi, String sabahKullanimi, String ogleKullanimi, String aksamKullanimi) {
         this.id = id;
         this.ilacAdi = ilacAdi;

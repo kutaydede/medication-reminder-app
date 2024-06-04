@@ -41,7 +41,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="User"
+            android:text="Kullanıcı"
             android:backgroundTint="@color/white"
             android:textColor="#008EFF"
             android:padding="18dp"
@@ -52,7 +52,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Doctor"
+            android:text="Doktor"
             android:backgroundTint="@color/white"
             android:textColor="#008EFF"
             android:padding="18dp"

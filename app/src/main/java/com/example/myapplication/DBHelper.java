@@ -5,11 +5,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.myapplication.Doctors.DoctorModel;
+import com.example.myapplication.Users.UserModel;
+import com.example.myapplication.Users.UsersMedications;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String dbName = "IlacTakip.db";
@@ -26,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE Ilaclar (IlacID INTEGER PRIMARY KEY AUTOINCREMENT, IlacAdi TEXT UNIQUE NOT NULL)");
         db.execSQL("CREATE TABLE IlacKullanimProgrami (ProgramID INTEGER PRIMARY KEY AUTOINCREMENT, IlacID INTEGER, TCKimlikNo TEXT, SabahKullanimZamani TEXT , OgleKullanimZamani TEXT, AksamKullanimZamani TEXT , FOREIGN KEY (IlacID) REFERENCES Ilaclar(IlacID), FOREIGN KEY (TCKimlikNo) REFERENCES Kullanicilar(TCKimlikNo))");
         db.execSQL("CREATE TABLE IlacKullanimDurumu (KayitID INTEGER PRIMARY KEY AUTOINCREMENT, IlacID INTEGER, TCKimlikNo TEXT, KullanimZamani DATETIME DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (IlacID) REFERENCES Ilaclar(IlacID), FOREIGN KEY (TCKimlikNo) REFERENCES Kullanicilar(TCKimlikNo))");
+        db.execSQL("CREATE TABLE Alarms (id INTEGER PRIMARY KEY AUTOINCREMENT,medication_name TEXT,alarm_time TEXT)");
     }
 
     @Override
@@ -163,11 +173,37 @@ public class DBHelper extends SQLiteOpenHelper {
                 int id = cursor.getInt(0);
                 String ilacAdi = cursor.getString(1);
                 String sabahKullanimi = cursor.getString(2);
-                String ogleKullanimi = cursor.getString(2);
-                String aksamKullanimi = cursor.getString(2);
+                String ogleKullanimi = cursor.getString(3);
+                String aksamKullanimi = cursor.getString(4);
 
 
                 UsersMedications usersMedications = new UsersMedications(id, ilacAdi, sabahKullanimi, ogleKullanimi, aksamKullanimi);
+                kullaniciIlaclar.add(usersMedications);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+        return kullaniciIlaclar;
+    }
+
+    public List<UsersMedications> getUsersProgram(String tc, int id) {
+        List<UsersMedications> kullaniciIlaclar = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT i.IlacAdi, ip.SabahKullanimZamani, ip.OgleKullanimZamani, ip.AksamKullanimZamani \n" +
+                "FROM IlacKullanimProgrami as ip \n" +
+                "INNER JOIN Ilaclar as i ON ip.IlacID = i.IlacID \n" +
+                "WHERE TCKimlikNo=? AND ip.IlacID=?", new String[]{tc, String.valueOf(id)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+
+                String ilacAdi = cursor.getString(0);
+                String sabahKullanimi = cursor.getString(1);
+                String ogleKullanimi = cursor.getString(2);
+                String aksamKullanimi = cursor.getString(3);
+
+
+                UsersMedications usersMedications = new UsersMedications(ilacAdi, sabahKullanimi, ogleKullanimi, aksamKullanimi);
                 kullaniciIlaclar.add(usersMedications);
             } while (cursor.moveToNext());
             cursor.close();
@@ -190,13 +226,88 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public void ilacKullanimiEkle(int IlacID, String TCKimlikNo) {
+    public boolean ilacKullanimiEkle(int ilacID, String tcKimlikNo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getTimeZone("Europe/Istanbul"));
+        String currentTime = sdf.format(new Date());
+
+        ContentValues values = new ContentValues();
+        values.put("IlacID", ilacID);
+        values.put("TCKimlikNo", tcKimlikNo);
+        values.put("KullanimZamani", currentTime);
+        long result = db.insert("IlacKullanimDurumu", null, values);
+        db.close();
+        return result != -1;
+    }
+
+    public List<DrugUseListModel> getDrugUseList(String tc, int id) {
+        List<DrugUseListModel> kullanimListesi = new ArrayList<>();
+
+        try (SQLiteDatabase db = this.getReadableDatabase()) {
+            if (db != null) {
+                try (Cursor cursor = db.rawQuery("SELECT ik.KayitID, ik.IlacID, i.IlacAdi, ik.KullanimZamani " +
+                                "FROM IlacKullanimDurumu as ik INNER JOIN Ilaclar as i " +
+                                "ON ik.IlacID = i.IlacID WHERE TCKimlikNo=? AND ik.IlacID=?",
+                        new String[]{tc, String.valueOf(id)})) {
+
+                    if (cursor != null && cursor.moveToFirst()) { // Cursor kontrolü
+                        do {
+                            int programId = cursor.getInt(0);
+                            int ilacId = cursor.getInt(1);
+                            String ilacAdi = cursor.getString(2);
+                            String kullanimZamani = cursor.getString(3);
+
+                            DrugUseListModel drugUseListModel = new DrugUseListModel(programId, ilacId, ilacAdi, kullanimZamani);
+                            kullanimListesi.add(drugUseListModel);
+                        } while (cursor.moveToNext());
+                    }
+                }
+            } else {
+                Log.e("DB_ERROR", "Veritabanına erişilemiyor.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("DB_ERROR", "Veritabanı işlemleri sırasında bir hata oluştu: " + e.getMessage());
+        }
+
+        return kullanimListesi;
+    }
+
+    public boolean drugList(String tc, int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT ik.KayitID, ik.IlacID, i.IlacAdi, ik.KullanimZamani " +
+                "FROM IlacKullanimDurumu as ik INNER JOIN Ilaclar as i ON ik.IlacID = i.IlacID " +
+                "WHERE ik.TCKimlikNo=? AND ik.IlacID=?", new String[]{tc, String.valueOf(id)});
+
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        return result;
+    }
+    public void addAlarm(String medicationName, String alarmTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("IlacID", IlacID);
-        values.put("TCKimlikNo", TCKimlikNo);
-        db.insert("IlacKullanimDurumu", null, values);
+        values.put("medication_name", medicationName);
+        values.put("alarm_time", alarmTime);
+        db.insert("Alarms", null, values);
         db.close();
     }
 
+    public List<String> getAllAlarms() {
+        List<String> alarms = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Alarms", null);
+        if (cursor.moveToFirst()) {
+            do {
+                String medicationName = cursor.getString(1);
+                String alarmTime = cursor.getString(2);
+                alarms.add("Medication: " + medicationName + ", Time: " + alarmTime);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return alarms;
+    }
 }
+
+

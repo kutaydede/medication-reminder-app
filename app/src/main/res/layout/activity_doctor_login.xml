@@ -8,7 +8,8 @@
     android:background="@drawable/back1"
     android:gravity="center"
     android:padding="16dp"
-    tools:context=".DoctorLoginActivity">
+    tools:context=".Doctors.DoctorLoginActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -16,92 +17,113 @@
         android:background="@color/toolbarColor"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true">
 
-        <!-- Geri dönüş düğmesi -->
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_back"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/back_button_description"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:onClick="Back_btn" />
-        <TextView
-            android:id="@+id/LoginDoctorTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Doktor Girişi "
-            android:textColor="@android:color/white"
-            android:textSize="28sp"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_back"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/back_button_description"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:onClick="Back_btn"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/LoginDoctorTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doktor Girişi"
+                android:textColor="@android:color/white"
+                android:textSize="28sp"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_below="@id/toolbar"
+        android:fillViewport="true">
 
-        <ImageView
-            android:layout_width="379dp"
-            android:layout_height="160dp"
-            android:src="@drawable/icons8_doctor_60">
-
-        </ImageView>
-
-        <EditText
-            android:id="@+id/DoctorNamelogin_input"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/rounded_corner"
-            android:drawableLeft="@drawable/ic_baseline_person_24"
-            android:hint="Ad"
-            android:inputType="text"
-            android:padding="18dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="20sp"
-            tools:ignore="HardcodedText" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="32dp">
 
-        <EditText
-            android:id="@+id/DoctorTclogin_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/rounded_corner"
-            android:drawableLeft="@drawable/ic_baseline_person_24"
-            android:hint="TC Kimlik No"
-            android:inputType="text"
-            android:padding="18dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="20sp" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:backgroundTint="@color/white"
-            android:textColor="#008EFF"
-            android:padding="18dp"
-            android:layout_marginTop="32dp"
-            android:textSize="20sp"
-            android:id="@+id/Doctorlogin_btn"
-            />
+            <ImageView
+                android:layout_width="379dp"
+                android:layout_height="160dp"
+                android:src="@drawable/icons8_doctor_60" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#008EFF"
-            android:padding="18dp" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/DoctorNamelogin_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_corner"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:hint="Ad"
+                android:inputType="text"
+                android:padding="18dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/DoctorTclogin_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_corner"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:hint="TC Kimlik No"
+                android:inputType="text"
+                android:padding="18dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="32dp">
+
+                <Button
+                    android:id="@+id/Doctorlogin_btn"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Giriş"
+                    android:backgroundTint="@color/white"
+                    android:textColor="#008EFF"
+                    android:padding="18dp"
+                    android:layout_margin="8dp"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/DoctorSign_btn"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Kayıt Ol"
+                    android:backgroundTint="@color/white"
+                    android:textColor="#008EFF"
+                    android:padding="18dp"
+                    android:layout_margin="8dp"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

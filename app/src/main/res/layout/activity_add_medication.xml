@@ -8,7 +8,7 @@
     android:background="@drawable/back2"
     android:gravity="center"
     android:padding="16dp"
-    tools:context=".AddMedicationActivity">
+    tools:context=".Doctors.AddMedicationActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -71,7 +71,7 @@
             tools:ignore="HardcodedText" />
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="İlaç Ekle"
             android:backgroundTint="@color/white"

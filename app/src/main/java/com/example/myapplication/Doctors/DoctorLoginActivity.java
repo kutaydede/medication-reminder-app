@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Doctors;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.DBHelper;
+import com.example.myapplication.R;
+
 public class DoctorLoginActivity extends AppCompatActivity {
     EditText ad, tc;
-    Button login;
+    Button login, signUp;
     DBHelper dbHelper;
 
     @Override
@@ -31,6 +34,7 @@ public class DoctorLoginActivity extends AppCompatActivity {
         ad = findViewById(R.id.DoctorNamelogin_input);
         tc = findViewById(R.id.DoctorTclogin_input);
         login = findViewById(R.id.Doctorlogin_btn);
+        signUp=findViewById(R.id.DoctorSign_btn);
         dbHelper = new DBHelper(this);
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -53,10 +57,20 @@ public class DoctorLoginActivity extends AppCompatActivity {
                 }
             }
         });
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gosignUp(v);
+            }
+        });
     }
 
     public void go(View view) {
-        Intent intent = new Intent(this, AddMedicationActivity.class);
+        Intent intent = new Intent(this, DoctorActivity.class);
+        startActivity(intent);
+
+    }public void gosignUp(View view) {
+        Intent intent = new Intent(this, DoctorSignUpActivity.class);
         startActivity(intent);
 
     }

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Doctors;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.myapplication.DBHelper;
+import com.example.myapplication.R;
 
 public class AddMedicationActivity extends AppCompatActivity {
     EditText ilacAdi;

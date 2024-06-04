@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".HomeActivity">
+    tools:context=".DrugUseListActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -21,11 +21,11 @@
             android:id="@+id/exitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/log_out_24"
+            android:src="@drawable/ic_arrow_back"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/exit_button_description"
-            android:paddingStart="330dp"
-            android:paddingEnd="1dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:onClick="exit_btn" />
 
 
@@ -36,7 +36,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hoş Geldiniz"
+        android:text=""
         android:textSize="25dp"
         android:textColor="#E31313"
         android:gravity="center"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:padding="20sp"
-        android:text="İlaçlarım"
+        android:text="İlaç kullanımları"
         android:textColor="#00BCD4"
         android:layout_marginTop="72dp"
         android:textSize="20dp" />
@@ -69,7 +69,7 @@
         android:layout_below="@id/textView2">
 
         <TableLayout
-            android:id="@+id/tableLayout"
+            android:id="@+id/tableLayoutList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:stretchColumns="*">
@@ -78,12 +78,18 @@
             <TableRow
                 android:background="@color/toolbarColor"
                 android:layout_marginTop="70sp">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="3dp"
-                    android:text="Id"
+                    android:text="Program Id"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:text="İlaç Id"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -99,23 +105,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="3dp"
-                    android:text="Sabah Kullanımı"
+                    android:text="Kullanım Tarihi"
                     android:textSize="13sp"
                     android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="3dp"
-                    android:text="Öğle Kullanımı"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="3dp"
-                    android:text="Akşam Kullanımı"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+
+
             </TableRow>
 
         </TableLayout>

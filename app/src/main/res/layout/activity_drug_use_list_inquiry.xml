@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back2"
+    android:background="@drawable/back1"
     android:gravity="center"
     android:padding="16dp"
-    tools:context=".UserActivity">
-
+    tools:context=".DrugUseListInquiryActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -17,7 +15,7 @@
         android:background="@color/toolbarColor"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true">
 
         <!-- Geri dönüş düğmesi -->
         <ImageButton
@@ -29,19 +27,19 @@
             android:contentDescription="@string/back_button_description"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:onClick="Back_btn" />
+            android:onClick="Back_btn"
+            />
         <TextView
-        android:id="@+id/UserTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Kullanıcı İşlemleri "
-        android:textColor="@android:color/white"
-        android:textSize="28sp"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        />
-
+            android:id="@+id/AddDoctorTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="İlaç Kullanımı Sorgulaması "
+            android:textColor="@android:color/white"
+            android:textSize="26sp"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            />
 
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
@@ -50,35 +48,49 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <EditText
+            android:id="@+id/Tc_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rounded_corner"
+            android:drawableLeft="@drawable/ic_baseline_person_24"
+            android:hint="TC Kimlik No"
+            android:inputType="text"
+            android:padding="18dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/ilacId_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rounded_corner"
+            android:drawableLeft="@drawable/icons8_medicine_24"
+            android:hint="İlaç Id"
+            android:inputType="text"
+            android:padding="18dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SignUp"
+            android:text="Sorgula"
             android:backgroundTint="@color/white"
             android:textColor="#008EFF"
             android:padding="18dp"
             android:layout_marginTop="32dp"
             android:textSize="20sp"
-            android:id="@+id/SignUp_btn"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:backgroundTint="@color/white"
-            android:textColor="#008EFF"
-            android:padding="18dp"
-            android:layout_marginTop="32dp"
-            android:textSize="20sp"
-            android:id="@+id/login_btn"
+            android:id="@+id/sorgula_btn"
             />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#008EFF"
-            android:padding="18dp" />
     </LinearLayout>
+
+
 </RelativeLayout>

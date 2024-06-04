@@ -14,6 +14,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.Doctors.DoctorActivity;
+import com.example.myapplication.Doctors.DoctorLoginActivity;
+import com.example.myapplication.Users.UserLoginActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     Button user, doctor;
@@ -79,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goUser(View view) {
-        Intent intent = new Intent(this, UserActivity.class);
+        Intent intent = new Intent(this, UserLoginActivity.class);
         startActivity(intent);
     }
 
     public void goDoctor(View view) {
-        Intent intent = new Intent(this, DoctorActivity.class);
+        Intent intent = new Intent(this, DoctorLoginActivity.class);
         startActivity(intent);
     }
 }

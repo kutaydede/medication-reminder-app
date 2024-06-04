@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Users;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +18,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.DBHelper;
+import com.example.myapplication.HomeActivity;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.R;
+
 public class UserLoginActivity extends AppCompatActivity {
     EditText tc, sifre, passwordInput;
-    Button login;
+    Button login , signup;
     CheckBox hatirla;
 
     DBHelper dbHelper;
@@ -41,6 +46,7 @@ public class UserLoginActivity extends AppCompatActivity {
         login = findViewById(R.id.login_btn);
         passwordInput = findViewById(R.id.Passwordlogin_input);
         hatirla = findViewById(R.id.checkBox);
+        signup=findViewById(R.id.register_btn);
         ImageView visibilityToggle = findViewById(R.id.visibilityToggle); // Göz simgesi olarak tanımlanan ImageView
 
         visibilityToggle.setOnClickListener(new View.OnClickListener() {
@@ -86,13 +92,27 @@ public class UserLoginActivity extends AppCompatActivity {
                 }
             }
         });
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goSignUp(v);
+            }
+        });
     }
 
     public void goHome(View view) {
 
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+    }
+    public void goSignUp(View view) {
+        Intent intent = new Intent(this, UserSignUpActivity.class);
+        startActivity(intent);
 
+    }
 
+    public void Back_btn(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

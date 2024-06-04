@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Ilac Takibi</string>
     <string name="back_button_description">Back</string>
+    <string name="exit_button_description">Exit</string>
+    <string name="notification_permission_description">Uygulamanın bildirim göndermesine izin vermek için.</string>
 </resources>

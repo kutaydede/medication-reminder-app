@@ -8,7 +8,7 @@
     android:background="@drawable/back2"
     android:gravity="center"
     android:padding="16dp"
-    tools:context=".DoctorActivity">
+    tools:context=".Doctors.DoctorActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -23,14 +23,22 @@
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_back"
+            android:src="@drawable/log_out_24"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/back_button_description"
-            android:paddingStart="8dp"
+            android:paddingStart="330dp"
             android:paddingEnd="8dp"
-            android:onClick="Back_btn" />
+            android:onClick="exitHome_btn" />
 
-    </androidx.appcompat.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar><TextView
+    android:id="@+id/textView2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Doktor İşlemleri"
+    android:textSize="25dp"
+    android:textColor="#E31313"
+    android:gravity="center"
+    android:padding="10sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,36 +47,40 @@
         android:orientation="vertical">
 
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SignUp"
-            android:backgroundTint="@color/white"
-            android:textColor="#008EFF"
-            android:padding="18dp"
-            android:layout_marginTop="32dp"
-            android:textSize="20sp"
-            android:id="@+id/DoctorSignUp_btn"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:backgroundTint="@color/white"
-            android:textColor="#008EFF"
-            android:padding="18dp"
-            android:layout_marginTop="32dp"
-            android:textSize="20sp"
-            android:id="@+id/DL_btn"
-            />
 
-        <TextView
-            android:id="@+id/DoctortextView"
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="Kullanıcıya Ilaç Kaydetme"
+            android:backgroundTint="@color/white"
             android:textColor="#008EFF"
-            android:padding="18dp" />
+            android:padding="18dp"
+            android:layout_marginTop="32dp"
+            android:textSize="20sp"
+            android:id="@+id/AddMTU_btn"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="İlaç Kayıt"
+            android:backgroundTint="@color/white"
+            android:textColor="#008EFF"
+            android:padding="18dp"
+            android:layout_marginTop="32dp"
+            android:textSize="20sp"
+            android:id="@+id/IlacKayit_btn"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="İlaç Kullanımı Sorgula"
+            android:backgroundTint="@color/white"
+            android:textColor="#008EFF"
+            android:padding="18dp"
+            android:layout_marginTop="32dp"
+            android:textSize="20sp"
+            android:id="@+id/IlacKullanim_btn"
+            />
 
 
     </LinearLayout>

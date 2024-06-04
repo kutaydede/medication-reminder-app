@@ -1,4 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.Users;
+
+import com.example.myapplication.PersonModel;
 
 public class UserModel extends PersonModel {
     private static UserModel instance;

@@ -1,5 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.Doctors;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.myapplication.DBHelper;
+import com.example.myapplication.R;
 
 public class DoctorSignUpActivity extends AppCompatActivity {
     EditText tc, ad, soyad, uzmanlik;
@@ -58,6 +62,8 @@ public class DoctorSignUpActivity extends AppCompatActivity {
                     boolean kayit = dbHelper.doktorEkle(doctor);
                     if (kayit) {
                         Toast.makeText(DoctorSignUpActivity.this, "Kayıt Başarılı !!", Toast.LENGTH_LONG).show();
+                        goLogin(v);
+
                     } else {
                         boolean sorgula = dbHelper.doktorTcSorgula(doctor.getTCKimlikNo());
                         if (sorgula) {
@@ -70,5 +76,10 @@ public class DoctorSignUpActivity extends AppCompatActivity {
             }
 
         });
+    }
+    public void goLogin(View view) {
+        Intent intent = new Intent(this, DoctorLoginActivity.class);
+        startActivity(intent);
+
     }
 }
