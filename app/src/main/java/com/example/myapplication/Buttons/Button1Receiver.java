@@ -5,12 +5,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.widget.Toast;
 
 import com.example.myapplication.Alarm.AlarmReceiver;
-import com.example.myapplication.DBHelper;
-import com.example.myapplication.Users.UserModel;
+import com.example.myapplication.Database.DBHelper;
 
 public class Button1Receiver extends BroadcastReceiver {
     DBHelper dbHelper;

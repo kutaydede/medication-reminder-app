@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,9 +9,11 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.example.myapplication.Doctors.DoctorModel;
-import com.example.myapplication.Users.UserModel;
-import com.example.myapplication.Users.UsersMedications;
+import com.example.myapplication.Model.DoctorModel;
+import com.example.myapplication.Model.DrugUseListModel;
+import com.example.myapplication.Model.DrugUseModel;
+import com.example.myapplication.Model.UserModel;
+import com.example.myapplication.Model.UsersMedications;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -284,6 +286,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return result;
     }
+
     public void addAlarm(String medicationName, String alarmTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

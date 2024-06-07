@@ -14,8 +14,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapplication.Doctors.DoctorActivity;
+import com.example.myapplication.Database.DBHelper;
 import com.example.myapplication.Doctors.DoctorLoginActivity;
+import com.example.myapplication.Users.HomeActivity;
 import com.example.myapplication.Users.UserLoginActivity;
 
 public class MainActivity extends AppCompatActivity {

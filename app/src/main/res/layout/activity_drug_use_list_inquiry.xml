@@ -7,7 +7,7 @@
     android:background="@drawable/back1"
     android:gravity="center"
     android:padding="16dp"
-    tools:context=".DrugUseListInquiryActivity">
+    tools:context=".Doctors.DrugUseListInquiryActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

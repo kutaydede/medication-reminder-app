@@ -13,7 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapplication.DBHelper;
+import com.example.myapplication.Database.DBHelper;
+import com.example.myapplication.Model.UserModel;
 import com.example.myapplication.R;
 
 public class UserSignUpActivity extends AppCompatActivity {
@@ -76,7 +77,6 @@ public class UserSignUpActivity extends AppCompatActivity {
             }
 
         });
-
     }
 
     public void goLogin(View view) {

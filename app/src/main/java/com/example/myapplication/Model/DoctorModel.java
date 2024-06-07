@@ -1,6 +1,6 @@
-package com.example.myapplication.Doctors;
+package com.example.myapplication.Model;
 
-import com.example.myapplication.PersonModel;
+import com.example.myapplication.Model.PersonModel;
 
 public class DoctorModel extends PersonModel {
     private String uzmanlikAlani;

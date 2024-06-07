@@ -1,8 +1,7 @@
-package com.example.myapplication;
+package com.example.myapplication.Users;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TableLayout;
@@ -16,9 +15,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.Database.DBHelper;
 import com.example.myapplication.Doctors.DoctorActivity;
-import com.example.myapplication.Users.UserSignUpActivity;
-import com.example.myapplication.Users.UsersMedications;
+import com.example.myapplication.Model.DrugUseListModel;
+import com.example.myapplication.R;
 
 import java.util.List;
 

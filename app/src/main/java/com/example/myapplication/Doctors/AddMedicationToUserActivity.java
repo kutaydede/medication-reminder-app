@@ -13,10 +13,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapplication.DBHelper;
-import com.example.myapplication.DrugUseModel;
+import com.example.myapplication.Database.DBHelper;
+import com.example.myapplication.Model.DrugUseModel;
 import com.example.myapplication.R;
-import com.example.myapplication.Users.UserSignUpActivity;
 
 public class AddMedicationToUserActivity extends AppCompatActivity {
     EditText id, tcNo, sabah, ogle, aksam;

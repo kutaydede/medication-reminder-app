@@ -13,7 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapplication.DBHelper;
+import com.example.myapplication.Database.DBHelper;
+import com.example.myapplication.Model.DoctorModel;
 import com.example.myapplication.R;
 
 public class DoctorSignUpActivity extends AppCompatActivity {
@@ -77,6 +78,7 @@ public class DoctorSignUpActivity extends AppCompatActivity {
 
         });
     }
+
     public void goLogin(View view) {
         Intent intent = new Intent(this, DoctorLoginActivity.class);
         startActivity(intent);

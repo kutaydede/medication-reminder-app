@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Doctors;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapplication.Doctors.DoctorActivity;
-import com.example.myapplication.Users.UserSignUpActivity;
+import com.example.myapplication.Database.DBHelper;
+import com.example.myapplication.R;
+import com.example.myapplication.Users.DrugUseListActivity;
 
 public class DrugUseListInquiryActivity extends AppCompatActivity {
     EditText edittextTc, edittextId;

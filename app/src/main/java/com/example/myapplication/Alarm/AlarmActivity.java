@@ -27,12 +27,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.myapplication.DBHelper;
-import com.example.myapplication.HomeActivity;
+import com.example.myapplication.Database.DBHelper;
+import com.example.myapplication.Model.UserModel;
+import com.example.myapplication.Model.UsersMedications;
 import com.example.myapplication.R;
-import com.example.myapplication.Users.UserModel;
-import com.example.myapplication.Users.UserSignUpActivity;
-import com.example.myapplication.Users.UsersMedications;
+import com.example.myapplication.Users.HomeActivity;
 
 import java.util.Calendar;
 import java.util.List;
@@ -190,7 +189,6 @@ public class AlarmActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // İzin verildi
             } else {
                 Toast.makeText(AlarmActivity.this, "İzin reddedildi.", Toast.LENGTH_SHORT).show();
             }

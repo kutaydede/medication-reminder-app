@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Users;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,9 +19,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapplication.Alarm.AlarmActivity;
-import com.example.myapplication.Users.UserLoginActivity;
-import com.example.myapplication.Users.UserModel;
-import com.example.myapplication.Users.UsersMedications;
+import com.example.myapplication.Database.DBHelper;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.Model.UserModel;
+import com.example.myapplication.Model.UsersMedications;
+import com.example.myapplication.R;
 
 import java.util.List;
 
@@ -98,14 +100,13 @@ public class HomeActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     Toast.makeText(HomeActivity.this, "Tıklanan ilaç: " + usersMedications.getIlacAdi(), Toast.LENGTH_SHORT).show();
-                     id = usersMedications.getId();
+                    id = usersMedications.getId();
                     Intent intent = new Intent(HomeActivity.this, AlarmActivity.class);
                     intent.putExtra("IlacID", id);
                     startActivity(intent);
                 }
             });
 
-            // TableRow'ı TableLayout'a ekle
             tableLayout.addView(row);
         }
 
@@ -135,16 +136,15 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    public void exit_btn(View view) {
 
-public void exit_btn(View view) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
 
-    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor = sharedPreferences.edit();
-    editor.clear();
-    editor.apply();
-
-    Intent intent = new Intent(this, MainActivity.class);
-    startActivity(intent);
-    finish();
-}
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

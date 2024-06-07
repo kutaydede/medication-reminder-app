@@ -18,14 +18,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapplication.DBHelper;
-import com.example.myapplication.HomeActivity;
+import com.example.myapplication.Database.DBHelper;
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.Model.UserModel;
 import com.example.myapplication.R;
 
 public class UserLoginActivity extends AppCompatActivity {
     EditText tc, sifre, passwordInput;
-    Button login , signup;
+    Button login, signup;
     CheckBox hatirla;
 
     DBHelper dbHelper;
@@ -46,23 +46,19 @@ public class UserLoginActivity extends AppCompatActivity {
         login = findViewById(R.id.login_btn);
         passwordInput = findViewById(R.id.Passwordlogin_input);
         hatirla = findViewById(R.id.checkBox);
-        signup=findViewById(R.id.register_btn);
+        signup = findViewById(R.id.register_btn);
         ImageView visibilityToggle = findViewById(R.id.visibilityToggle); // Göz simgesi olarak tanımlanan ImageView
 
         visibilityToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (passwordInput.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-                    // Şifre görünürse, şifre gizlenecek
                     passwordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     visibilityToggle.setImageResource(R.drawable.icons8_visibility_24); // Göz simgesini değiştirme
                 } else {
-                    // Şifre gizliyse, şifre görünür hale gelecek
                     passwordInput.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     visibilityToggle.setImageResource(R.drawable.icons8_visibility_24); // Göz simgesini değiştirme
                 }
-
-                // Yeni metni dikkate almak için cursor'u güncelle
                 int position = passwordInput.length();
                 passwordInput.setSelection(position);
             }
@@ -105,10 +101,10 @@ public class UserLoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
+
     public void goSignUp(View view) {
         Intent intent = new Intent(this, UserSignUpActivity.class);
         startActivity(intent);
-
     }
 
     public void Back_btn(View view) {
